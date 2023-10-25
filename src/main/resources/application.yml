@@ -38,7 +38,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl_auto: create  # create, update, none, create-drop, validate
+      ddl_auto: update  # create, update, none, create-drop, validate
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy # 카멜표기를 스네이크 표기로 변환
     show-sql: true

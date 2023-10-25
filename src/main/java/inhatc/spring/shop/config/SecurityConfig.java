@@ -16,9 +16,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        // 보안 설정
-        http.formLogin(Customizer.withDefaults());
+        http.formLogin(form -> form
+                .loginPage("/member/login")
+                .defaultSuccessUrl("/")
+                .failureUrl("/member/login/error")
+                .usernameParameter("email")
+                .permitAll());
+
         http.logout(Customizer.withDefaults());
+
+        http.authorizeHttpRequests(request -> request
+                .requestMatchers("/css/**").permitAll()
+                .requestMatchers("/", "member/**").permitAll()
+                .anyRequest().authenticated());
+
+        http.exceptionHandling(exception -> exception
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+        );
 
         return http.build();
     }
