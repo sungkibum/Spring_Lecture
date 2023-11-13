@@ -32,7 +32,8 @@ public class Order {
     private OrderStatus status;     // 주문 상태
 
     @Builder.Default
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)  // mappedBy(연관 관계의 주인 표시)
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL, orphanRemoval = true)  // mappedBy(연관 관계의 주인 표시), casecade(영속성 전이), orphanRemoval(고아 속성)
     private List<OrderItem> orderItems = new ArrayList<>();     // 주문 상품
 
 }
