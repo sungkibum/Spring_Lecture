@@ -24,7 +24,7 @@ public class ItemDto {
 
     private String itemSellStatus;  // 상품의 판매 상태
 
-    private LocalDateTime regTime;
-    private LocalDateTime updateTime;
+    private LocalDateTime regTime;  // 등록 시간
+    private LocalDateTime updateTime;   // 수정 시간
 
 }

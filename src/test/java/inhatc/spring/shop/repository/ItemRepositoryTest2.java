@@ -37,8 +37,6 @@ class ItemRepositoryTest2 {
                     .stockNumber(100 + i)
                     .itemDetail("상품 상세 설명" + i)
                     .itemSellStatus(ItemSellStatus.SELL)
-                    .regTime(LocalDateTime.now())
-                    .updateTime(LocalDateTime.now())
                     .build();
 
             itemRepository.save(item);

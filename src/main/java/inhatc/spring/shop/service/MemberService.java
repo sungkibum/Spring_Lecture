@@ -1,30 +1,36 @@
 package inhatc.spring.shop.service;
 
+import inhatc.spring.shop.dto.MemberFormDto;
 import inhatc.spring.shop.entity.Member;
 import inhatc.spring.shop.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.util.Optional;
-
 @Service
+
 @Slf4j
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
-    public MemberService(MemberRepository memberRepository) {
+    private final ModelMapper modelMapper;
+
+    public MemberService(MemberRepository memberRepository, ModelMapper modelMapper) {
         this.memberRepository = memberRepository;
+        this.modelMapper = modelMapper;
     }
 
 
     public Member saveMember(Member member) {
+
+        MemberFormDto formDto = modelMapper.map(member, MemberFormDto.class);
+        Member newMember = modelMapper.map(formDto, Member.class);
+
         validateDuplicateMember(member);
         return memberRepository.save(member);
     }
